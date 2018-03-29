@@ -36,14 +36,7 @@ A bootstrap action to perform these steps will be available soon.
 Example DDL
 -----------
 ```sql
-CREATE EXTERNAL TABLE `cloudwatch_logs`(
-  `owner` string,
-  `loggroup` string,
-  `messagetype` string,
-  `subscriptionfilters` array<string>,
-  `id` string,
-  `message` string,
-  `timestamp` bigint)
+CREATE EXTERNAL TABLE `cloudwatch_logs`
 ROW FORMAT SERDE 'com.amazon.emr.hive.serde.logs.LogsDeserializer'
 STORED AS INPUTFORMAT 'com.amazon.emr.logs.LogsInputFormat'
 OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
