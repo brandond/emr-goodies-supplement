@@ -20,11 +20,11 @@ There are some additional goodies in there for parsing S3 (`com.amazon.emr.hive.
 
 In This Repo
 ------------
-This repo contains code for additional classes to support parsing of CloudWatch Logs messages and other data streamed to S3 via Kinesis Firehose:
+This repo contains code for additional classes to support parsing of CloudWatch Logs messages and other data [streamed to S3 via Kinesis Firehose](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html#FirehoseExample):
 * `org.apache.hadoop.io.compress.SplittableGzipCodec` - Compression codec that reads multiple concatenated gzip chunks as discrete records (as output by CloudWatch Logs)
 * `com.amazon.emr.hadoop.ConfigurableLineRecordReader` - Configurable line-based record reader that allows overriding compression codec selection
 * `com.amazon.emr.logs.LogsInputFormat` - Input format for CloudWatch Logs records
-* `com.amazon.emr.hive.serde.logs.LogsDeserializer` - Hive deserializer/deserializer for CloudwatchLogs records
+* `com.amazon.emr.hive.serde.logs.LogsDeserializer` - Deserializer for Cloudwatch Logs records
 
 In order to use these classes, you will need to:
 * Build the code from this repo.
