@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/emr-goodies-supplement.iml" filepath="$PROJECT_DIR$/emr-goodies-supplement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/emr-hadoop-goodies-supplement/emr-hadoop-goodies-supplement.iml" filepath="$PROJECT_DIR$/emr-hadoop-goodies-supplement/emr-hadoop-goodies-supplement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/emr-hive-goodies-supplement/emr-hive-goodies-supplement.iml" filepath="$PROJECT_DIR$/emr-hive-goodies-supplement/emr-hive-goodies-supplement.iml" />
+    </modules>
+  </component>
+</project>

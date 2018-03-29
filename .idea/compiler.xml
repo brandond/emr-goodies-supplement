@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="emr-hadoop-goodies-supplement" />
+        <module name="emr-hive-goodies-supplement" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="emr-goodies-supplement" target="1.5" />
+      <module name="emr-hadoop-goodies-supplement" target="1.5" />
+      <module name="emr-hive-goodies-supplement" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
