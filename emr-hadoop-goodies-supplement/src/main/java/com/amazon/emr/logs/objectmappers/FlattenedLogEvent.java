@@ -1,6 +1,7 @@
 package com.amazon.emr.logs.objectmappers;
 
 import com.google.gson.Gson;
+
 import java.util.List;
 
 public class FlattenedLogEvent

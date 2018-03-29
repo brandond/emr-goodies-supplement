@@ -2,7 +2,6 @@ package com.amazon.emr.hive.serde.logs;
 
 import com.amazon.emr.logs.objectmappers.CloudWatchLogEntry;
 import com.amazon.emr.logs.objectmappers.FlattenedLogEvent;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hive.serde2.AbstractDeserializer;
 import org.apache.hadoop.hive.serde2.SerDeException;

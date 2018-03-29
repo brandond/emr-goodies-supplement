@@ -1,10 +1,11 @@
 package org.apache.hadoop.io.compress.gzip;
 
+import org.apache.hadoop.io.compress.Decompressor;
+import org.apache.hadoop.io.compress.SplittableCompressionCodec.READ_MODE;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.apache.hadoop.io.compress.Decompressor;
-import org.apache.hadoop.io.compress.SplittableCompressionCodec.READ_MODE;
 
 public class GzipInputStream extends InputStream {
     private static final int DEFAULT_DIRECT_BUFFER_SIZE = 64*1024;
@@ -73,8 +74,6 @@ public class GzipInputStream extends InputStream {
             if (bytesLastRead > 0) {
                 decompressor.setInput(array, 0, bytesLastRead);
                 updateProcessedByteCount(bytesLastRead);
-            } else {
-                decompressor.end();
             }
         }
 

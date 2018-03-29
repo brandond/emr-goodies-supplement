@@ -1,7 +1,5 @@
 package com.amazon.emr.logs.objectmappers;
 
-import com.google.gson.Gson;
-
 public class LogEvent {
     private String id;
     private String message;

@@ -5,14 +5,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configurable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Seekable;
+import org.apache.hadoop.io.compress.gzip.GzipInputStream;
 import org.apache.hadoop.io.compress.zlib.BuiltInGzipDecompressor;
 import org.apache.hadoop.io.compress.zlib.ZlibDecompressor;
 import org.apache.hadoop.io.compress.zlib.ZlibFactory;
-import org.apache.hadoop.io.compress.gzip.GzipInputStream;
 
 import java.io.BufferedInputStream;
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,11 +37,9 @@ public class SplittableGzipCodec
     public CompressionOutputStream createOutputStream(OutputStream out)
         throws IOException
     {
-        if (!ZlibFactory.isNativeZlibLoaded(conf)) {
-            return new GzipCodec.GzipOutputStream(out);
-        }
-        return CompressionCodec.Util.
-                createOutputStreamWithCodecPool(this, conf, out);
+        return ZlibFactory.isNativeZlibLoaded(conf) ?
+                CompressionCodec.Util.createOutputStreamWithCodecPool(this, conf, out) :
+                new GzipCodec.GzipOutputStream(out);
     }
 
     public CompressionOutputStream createOutputStream(OutputStream out, Compressor compressor)
@@ -95,7 +91,8 @@ public class SplittableGzipCodec
     public Class<? extends Decompressor> getDecompressorType()
     {
         return ZlibFactory.isNativeZlibLoaded(conf) ?
-                ZlibDecompressor.class : BuiltInGzipDecompressor.class;
+                ZlibDecompressor.class :
+                BuiltInGzipDecompressor.class;
     }
 
     public Decompressor createDecompressor()

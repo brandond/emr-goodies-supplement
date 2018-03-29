@@ -1,19 +1,19 @@
 package com.amazon.emr.logs;
 
-import static org.junit.Assert.assertEquals;
-import static org.apache.hadoop.mapred.Reporter.NULL;
-
 import com.amazon.emr.logs.objectmappers.CloudWatchLogEntry;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.mapred.*;
+import org.apache.hadoop.mapred.FileSplit;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import static org.apache.hadoop.mapred.Reporter.NULL;
+import static org.junit.Assert.assertEquals;
 
 public class TestLogsRecordReader {
     private static Path workDir = new Path(new Path(System.getProperty(
