@@ -6,7 +6,7 @@ emr-goodies-supplement
 AWS provides some 'extensions' for EMR to make your life easier when processing logs produced by Amazon services.
 Specifically, `emr-hadoop-goodies.jar` and `emr-hive-goodies.jar` provide InputFormats and SerDes that 
 allow you to directly query CloudTrail logs stored in S3. You'll find references to these classes peppered throughout
-the documentation:
+[the documentation](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail.html):
 
 ```sql
 CREATE EXTERNAL TABLE cloudtrail_logs (
@@ -16,7 +16,7 @@ STORED AS INPUTFORMAT 'com.amazon.emr.cloudtrail.CloudTrailInputFormat'
 (...)
 ```
 
-There are some additional goodies in there for parsing S3 (`com.amazon.emr.hive.serde.s3`) and EMR (`com.amazon.hive.serde.EmrServiceLogSerDe`, `com.amazon.hive.inputformat.ServiceLogInputFormat`) logs, but I've never found any public references to them so they're probably underutilized.
+There are some additional goodies in there for parsing S3 (`com.amazon.emr.hive.serde.s3.S3LogDeserializer`) and EMR (`com.amazon.hive.serde.EmrServiceLogSerDe`, `com.amazon.hive.inputformat.ServiceLogInputFormat`) logs, but I've never found any public references to them so they're probably underutilized.
 
 In This Repo
 ------------
@@ -50,3 +50,9 @@ OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION 's3://mys3bucket/'
 TBLPROPERTIES ('textfile.compress'='splittablegzip')
 ```
+
+Notes
+-----
+
+`com.amazon.emr.hive.serde.s3.S3LogDeserializer` seems to be exactly the same as `org.apache.hadoop.hive.contrib.serde2.s3.S3LogDeserializer`, right down to the weird `S3ZemantaDeserializer[]` stringification, so it's possible that some of the closed-source 'goodies' are actually covered by an Apache license. See:
+ https://forums.aws.amazon.com/thread.jspa?messageID=628236
