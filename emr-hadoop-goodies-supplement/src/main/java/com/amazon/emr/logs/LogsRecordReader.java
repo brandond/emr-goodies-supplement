@@ -1,6 +1,6 @@
 package com.amazon.emr.logs;
 
-import com.amazon.emr.hadoop.ConfigurableLineRecordReader;
+import com.amazon.emr.hadoop.MemberRecordReader;
 import com.amazon.emr.logs.objectmappers.CloudWatchLogEntry;
 import com.amazon.emr.logs.objectmappers.FlattenedLogEvent;
 import com.amazon.emr.logs.objectmappers.LogRecord;
@@ -19,7 +19,7 @@ public class LogsRecordReader
     implements RecordReader<LongWritable, CloudWatchLogEntry>
 {
     public static final Log LOG = LogFactory.getLog(LogsRecordReader.class);
-    private ConfigurableLineRecordReader lineRecordReader;
+    private MemberRecordReader recordReader;
     private LogRecord logRecord;
     private int listPos = 0;
     Text lineValue = new Text();
@@ -27,14 +27,14 @@ public class LogsRecordReader
     public LogsRecordReader(FileSplit split, Configuration conf, Reporter reporter)
         throws IOException
     {
-        this.lineRecordReader = new ConfigurableLineRecordReader(conf, split);
+        this.recordReader = new MemberRecordReader(conf, split);
         this.logRecord = new LogRecord();
     }
 
     public void close()
         throws IOException
     {
-        this.lineRecordReader.close();
+        this.recordReader.close();
     }
 
     public LongWritable createKey() {
@@ -48,13 +48,13 @@ public class LogsRecordReader
     public long getPos()
         throws IOException
     {
-        return this.lineRecordReader.getPos();
+        return this.recordReader.getPos();
     }
 
     public float getProgress()
         throws IOException
     {
-        return this.lineRecordReader.getProgress();
+        return this.recordReader.getProgress();
     }
 
     public boolean next(LongWritable key, CloudWatchLogEntry value)
@@ -66,7 +66,7 @@ public class LogsRecordReader
             return true;
         }
 
-        while (this.lineRecordReader.next(key, this.lineValue)) {
+        while (this.recordReader.next(key, this.lineValue)) {
             this.listPos = 0;
             this.logRecord = new LogRecord();
 

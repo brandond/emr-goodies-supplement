@@ -1,6 +1,8 @@
 package com.amazon.emr.logs;
 
 import com.amazon.emr.logs.objectmappers.CloudWatchLogEntry;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
@@ -16,6 +18,7 @@ import static org.apache.hadoop.mapred.Reporter.NULL;
 import static org.junit.Assert.assertEquals;
 
 public class TestLogsRecordReader {
+    public static final Log LOG = LogFactory.getLog(TestLogsRecordReader.class);
     private static Path workDir = new Path(new Path(System.getProperty(
             "test.build.data", "target"), "data"), "TestTextInputFormat");
     private static Path inputDir = new Path(workDir, "input");
@@ -32,7 +35,7 @@ public class TestLogsRecordReader {
         conf.set("io.compression.codecs", "org.apache.hadoop.io.compress.SplittableGzipCodec,org.apache.hadoop.io.compress.GzipCodec");
         if (forceGzip)
         {
-            conf.set("textfile.compress", "splittablegzip");
+            conf.set("codec.force", "splittablegzip");
         }
 
         ArrayList<String> records = new ArrayList<String>();
@@ -56,8 +59,12 @@ public class TestLogsRecordReader {
         throws IOException
     {
         URL testFileUrl = getClass().getClassLoader().getResource(testFile);
-        ArrayList<String> records = readRecords(testFileUrl, 1024, forceGzip);
+        ArrayList<String> records = readRecords(testFileUrl, 64 * 1024, forceGzip);
         assertEquals("Wrong number of records", eventCount, records.size());
+
+        for (String record: records) {
+            LOG.info(record);
+        }
     }
 
     @Test

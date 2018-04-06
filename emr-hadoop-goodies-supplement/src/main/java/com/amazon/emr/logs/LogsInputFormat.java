@@ -1,6 +1,8 @@
 package com.amazon.emr.logs;
 
 import com.amazon.emr.logs.objectmappers.CloudWatchLogEntry;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapred.*;
 
@@ -14,5 +16,9 @@ public class LogsInputFormat
         throws IOException
     {
         return new LogsRecordReader((FileSplit)split, job, reporter);
+    }
+
+    protected boolean isSplitable(FileSystem fs, Path filename) {
+        return false;
     }
 }

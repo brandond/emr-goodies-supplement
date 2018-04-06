@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="emr-goodies-supplement" target="1.5" />
-      <module name="emr-hadoop-goodies-supplement" target="1.5" />
+      <module name="emr-hadoop-goodies-supplement" target="8" />
       <module name="emr-hive-goodies-supplement" target="1.5" />
     </bytecodeTargetLevel>
   </component>

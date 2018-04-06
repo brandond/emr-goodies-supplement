@@ -20,11 +20,12 @@ There are some additional goodies in there for parsing S3 (`com.amazon.emr.hive.
 
 In This Repo
 ------------
-This repo contains code for additional classes to support parsing of CloudWatch Logs messages and other data [streamed to S3 via Kinesis Firehose](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html#FirehoseExample):
-* `org.apache.hadoop.io.compress.SplittableGzipCodec` - Compression codec that reads multiple concatenated gzip chunks as discrete records (as output by CloudWatch Logs)
-* `com.amazon.emr.hadoop.ConfigurableLineRecordReader` - Configurable line-based record reader that allows overriding compression codec selection
+This repo contains code for additional classes to support parsing of CloudWatch Logs messages and other data [streamed to S3 via Kinesis Firehose](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html#FirehoseExample). These classes include:
 * `com.amazon.emr.logs.LogsInputFormat` - Input format for CloudWatch Logs records
 * `com.amazon.emr.hive.serde.logs.LogsDeserializer` - Deserializer for Cloudwatch Logs records
+* `com.amazon.emr.hive.serde.logs.VpcFlowDeserializer` - Deserializer for Cloudwatch Logs records containing VPC Flow Logs
+* `com.amazon.emr.hadoop.MemberRecordReader` - Configurable file-record based record reader that supports overriding compression codec selection (intended for use with `SplittableGzipCodec`)
+* `org.apache.hadoop.io.compress.SplittableGzipCodec` - Compression codec that reads multiple concatenated gzip chunks as individual records (as output by CloudWatch Logs)
 
 In order to use these classes, you will need to:
 * Build the code from this repo.
@@ -35,13 +36,24 @@ A bootstrap action to perform these steps will be available soon.
 
 Example DDL
 -----------
+**CloudWatch Logs:**
 ```sql
 CREATE EXTERNAL TABLE `cloudwatch_logs`
 ROW FORMAT SERDE 'com.amazon.emr.hive.serde.logs.LogsDeserializer'
 STORED AS INPUTFORMAT 'com.amazon.emr.logs.LogsInputFormat'
 OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION 's3://mys3bucket/'
-TBLPROPERTIES ('textfile.compress'='splittablegzip')
+TBLPROPERTIES ('codec.force'='splittablegzip')
+```
+
+**VPC Flow Logs:**
+```sql
+CREATE EXTERNAL TABLE `vpc_flow_logs`
+ROW FORMAT SERDE 'com.amazon.emr.hive.serde.logs.VpcFlowDeserializer'
+STORED AS INPUTFORMAT 'com.amazon.emr.logs.LogsInputFormat'
+OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION 's3://mys3bucket/'
+TBLPROPERTIES ('codec.force'='splittablegzip')
 ```
 
 Notes

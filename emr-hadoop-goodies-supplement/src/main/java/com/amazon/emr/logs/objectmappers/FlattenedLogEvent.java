@@ -1,19 +1,22 @@
 package com.amazon.emr.logs.objectmappers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class FlattenedLogEvent
 {
-    private static Gson gson = new Gson();
-    private String owner;
-    private String logGroup;
-    private String messageType;
-    private List<String> subscriptionFilters;
-    private String id;
-    private String message;
-    private long timestamp;
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class, new TimestampLongFormatTypeAdapter()).create();
+    public String owner;
+    public String logGroup;
+    public String messageType;
+    public List<String> subscriptionFilters;
+    public String id;
+    public String message;
+    public Timestamp timestamp;
+
 
     public FlattenedLogEvent(LogRecord record, LogEvent event)
     {
@@ -23,7 +26,7 @@ public class FlattenedLogEvent
         this.subscriptionFilters = record.getSubscriptionFilters();
         this.id = event.getId();
         this.message = event.getMessage();
-        this.timestamp = event.getTimestamp();
+        this.timestamp = new Timestamp(event.getTimestamp());
     }
 
     public static String toJson(FlattenedLogEvent event)
@@ -33,7 +36,7 @@ public class FlattenedLogEvent
 
     public static FlattenedLogEvent fromJson(String jsonString)
     {
-        return (FlattenedLogEvent)gson.fromJson(jsonString, FlattenedLogEvent.class);
+        return gson.fromJson(jsonString, FlattenedLogEvent.class);
     }
 
     public String toString() {

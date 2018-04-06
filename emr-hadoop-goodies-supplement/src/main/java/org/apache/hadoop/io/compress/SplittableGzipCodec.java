@@ -134,13 +134,12 @@ public class SplittableGzipCodec
             throws IOException
         {
             super(in, start, end);
-            needsReset = false;
-            bufferedIn = new BufferedInputStream(super.in);
+            this.needsReset = false;
+            this.bufferedIn = new BufferedInputStream(super.in);
             this.decompressor = decompressor;
             this.startingPos = super.getPos();
             this.readMode = readMode;
-
-            input = new GzipInputStream(bufferedIn, this.decompressor, this.readMode);
+            this.input = new GzipInputStream(bufferedIn, this.decompressor, this.readMode);
 
             if (!(this.readMode == READ_MODE.BYBLOCK && this.startingPos == 0)) {
                 this.updatePos();
@@ -193,15 +192,15 @@ public class SplittableGzipCodec
             throws IOException
         {
             if (needsReset) {
-                needsReset = false;
-                input = new GzipInputStream(bufferedIn, this.decompressor, this.readMode);
+                this.needsReset = false;
+                this.input = new GzipInputStream(bufferedIn, this.decompressor, this.readMode);
             }
         }
 
         public void resetState()
             throws IOException
         {
-            needsReset = true;
+            this.needsReset = true;
         }
 
         public long getPos()
