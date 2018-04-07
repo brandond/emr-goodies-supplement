@@ -2,6 +2,7 @@ package com.amazon.emr.logs.objectmappers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.hadoop.util.StringUtils;
 
 import java.sql.Timestamp;
 
@@ -25,7 +26,7 @@ public class VpcFlowLogEvent
 
     public VpcFlowLogEvent(String str)
     {
-        String[] parts = str.split(" ");
+        String[] parts = StringUtils.split(str, ' ');
         if (parts.length != 14){
             throw new IllegalArgumentException("Invalid VPC Flow Log message length");
         }
