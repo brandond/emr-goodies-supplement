@@ -75,8 +75,14 @@ public class MemberRecordReader
     public synchronized boolean next(LongWritable key, Text value)
         throws IOException
     {
-        key.set(inputStream.getPos());
-        return reader.readLine(value, maxLineLength) > 0;
+        try {
+            key.set(inputStream.getPos());
+            return reader.readLine(value, maxLineLength) > 0;
+        } catch (IOException ex){
+            throw new IOException("Exception encountered while reading " + fileSplit.getPath().toUri() +
+                                  " with " + inputStream.getClass().toString(),
+                                  ex);
+        }
     }
 
     public LongWritable createKey()

@@ -78,26 +78,21 @@ public class GzipInputStream extends InputStream {
         }
 
         int readSize = decompressor.decompress(dest, offs, len);
-        if (readSize <= 0) {
-            if (decompressor.finished()) {
-                int remaining = decompressor.getRemaining();
-                if (remaining > 0) {
-                    in.reset();
-                    long skippedBytes = in.skip(bytesLastRead - remaining);
-                    if (skippedBytes < (bytesLastRead - remaining)){
-                        throw new IOException("Failed to reset stream to start of next block");
-                    }
-                    decompressor.reset();
-                    updateProcessedByteCount(-remaining);
-                    return END_OF_BLOCK;
-                } else {
-                    return END_OF_STREAM;
+        if (readSize == 0 && decompressor.finished()) {
+            int remaining = decompressor.getRemaining();
+            if (remaining > 0) {
+                in.reset();
+                long skippedBytes = in.skip(bytesLastRead - remaining);
+                if (skippedBytes < (bytesLastRead - remaining)) {
+                    throw new IOException("Failed to reset stream to start of next block");
                 }
+                decompressor.reset();
+                updateProcessedByteCount(-remaining);
+                return END_OF_BLOCK;
             } else {
-                throw new IOException("Decompressor returned 0 bytes but is not finished");
+                return END_OF_STREAM;
             }
-        } else {
-            return readSize;
         }
+        return readSize;
     }
 }

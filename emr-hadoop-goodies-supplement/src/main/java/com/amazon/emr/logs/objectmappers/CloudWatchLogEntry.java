@@ -34,4 +34,9 @@ public class CloudWatchLogEntry
     {
         this.event = FlattenedLogEvent.fromJson(in.readUTF());
     }
+
+    public String toString()
+    {
+        return FlattenedLogEvent.toJson(this.event);
+    }
 }
