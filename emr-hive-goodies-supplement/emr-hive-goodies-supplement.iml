@@ -12,6 +12,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.apache.hive:hive-storage-api:2.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-hdfs:2.7.1" level="project" />
     <orderEntry type="module" module-name="emr-hadoop-goodies-supplement" />
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-common:2.8.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-annotations:2.8.3" level="project" />

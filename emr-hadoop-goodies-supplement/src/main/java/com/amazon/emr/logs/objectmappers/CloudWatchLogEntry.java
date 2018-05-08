@@ -11,7 +11,9 @@ public class CloudWatchLogEntry
 {
     private FlattenedLogEvent event;
 
-    public VpcFlowLogEvent getVpcFlowLogEvent() {
+    public VpcFlowLogEvent getVpcFlowLogEvent()
+        throws LogEventException
+    {
         return new VpcFlowLogEvent(event.message);
     }
 
