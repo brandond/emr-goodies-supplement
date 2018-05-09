@@ -5,14 +5,10 @@ import com.google.gson.GsonBuilder;
 import org.apache.hadoop.util.StringUtils;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class VpcFlowLogEvent
 {
     private static Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class, new TimestampLongFormatTypeAdapter()).create();
-    private static ArrayList<String> valid_action = new ArrayList<String>(Arrays.asList("ACCEPT", "REJECT"));
-    private static ArrayList<String> valid_status = new ArrayList<String>(Arrays.asList("OK", "NODATA", "SKIPDATA"));
     public String version;
     public String account_id;
     public String interface_id;
@@ -35,11 +31,8 @@ public class VpcFlowLogEvent
         if (parts.length != 14){
             throw new LogEventException("Invalid VPC Flow Log message length");
         }
-        if (! valid_action.contains(parts[12])){
-            throw new LogEventException("Invalid VPC Flow Log action field");
-        }
-        if (! valid_status.contains(parts[13])){
-            throw new LogEventException("Invalid VPC Flow Log log_status field");
+        if (! parts[0].equals("2")){
+            throw new LogEventException("Invalid VPC Flow Log version");
         }
 
         version = parts[0];
