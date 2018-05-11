@@ -10,6 +10,7 @@ public class LogRecord
     private static Gson gson = new Gson();
     private String owner;
     private String logGroup;
+    private String logStream;
     private String messageType;
     private List<String> subscriptionFilters;
     private List<LogEvent> logEvents;
@@ -35,6 +36,12 @@ public class LogRecord
     public void setLogGroup(String logGroup) {
         this.logGroup = logGroup;
     }
+
+    public String getLogStream() {
+        return logStream;
+    }
+
+    public void setLogStream(String logStream) { this.logStream = logStream; }
 
     public String getMessageType() {
         return messageType;
@@ -66,6 +73,7 @@ public class LogRecord
         LogRecord logRecord = (LogRecord)gson.fromJson(json, LogRecord.class);
         setOwner(logRecord.getOwner());
         setLogGroup(logRecord.getLogGroup());
+        setLogStream(logRecord.getLogStream());
         setMessageType(logRecord.getMessageType());
         setSubscriptionFilters(logRecord.getSubscriptionFilters());
         setLogEvents(logRecord.getLogEvents());
@@ -75,6 +83,7 @@ public class LogRecord
     {
         return "LogRecord [owner=" + this.owner +
                 ", logGroup=" + this.logGroup +
+                ", logStream=" + this.logStream +
                 ", messageType=" + this.messageType +
                 ", subscriptionFilters=" + this.subscriptionFilters +
                 ", logEvents=" + this.logEvents +

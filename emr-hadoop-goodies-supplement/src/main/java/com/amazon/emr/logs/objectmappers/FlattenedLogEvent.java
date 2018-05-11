@@ -11,6 +11,7 @@ public class FlattenedLogEvent
     private static Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class, new TimestampLongFormatTypeAdapter()).create();
     public String owner;
     public String logGroup;
+    public String logStream;
     public String messageType;
     public List<String> subscriptionFilters;
     public String id;
@@ -22,6 +23,7 @@ public class FlattenedLogEvent
     {
         this.owner = record.getOwner();
         this.logGroup = record.getLogGroup();
+        this.logStream = record.getLogStream();
         this.messageType = record.getMessageType();
         this.subscriptionFilters = record.getSubscriptionFilters();
         this.id = event.getId();
@@ -42,6 +44,7 @@ public class FlattenedLogEvent
     public String toString() {
         return "FlattenedLogRecord [owner=" + this.owner +
                 ", logGroup=" + this.logGroup +
+                ", logStream=" + this.logStream +
                 ", messageType=" + this.messageType +
                 ", subscriptionFilters=" + this.subscriptionFilters +
                 ", id=" + this.id +
