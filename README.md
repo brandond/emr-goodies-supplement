@@ -29,7 +29,7 @@ This repo contains code for additional classes to support parsing of CloudWatch 
 
 In order to use these classes, you will need to:
 * Build the code from this repo.
-* Copy `emr-hadoop-goodies-supplement-2.4.0.jar` and `emr-hive-goodies-supplement-2.4.0.jar` to `/usr/share/aws/emr/lib/` on your EMR nodes.
+* Copy `emr-hadoop-goodies-supplement-2.9.0.jar` and `emr-hive-goodies-supplement-2.9.0.jar` to `/usr/share/aws/emr/lib/` on your EMR nodes.
 * Add `org.apache.hadoop.io.compress.SplittableGzipCodec` to the begining of the list in the `io.compression.codecs` property within `/etc/hadoop/conf.empty/core-site.xml`
 
 A bootstrap action to perform these steps will be available soon.

@@ -7,21 +7,28 @@
     <artifactId>emr-goodies-supplement</artifactId>
     <packaging>pom</packaging>
 
+    <repositories>
+        <repository>
+            <id>spring-libs</id>
+            <url>http://repo.spring.io/libs-snapshot/</url>
+        </repository>
+    </repositories>
+
     <modules>
         <module>emr-hadoop-goodies-supplement</module>
         <module>emr-hive-goodies-supplement</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hadoop.version>2.8.3</hadoop.version>
-        <hive.version>2.3.2</hive.version>
+        <hadoop.version>2.8.5</hadoop.version>
+        <hive.version>2.3.5</hive.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
         <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
     </properties>
 
     <groupId>com.amazon.emr</groupId>
-    <version>2.4.0</version>
+    <version>2.9.0</version>
 
     <name>EMR Goodies (supplement)</name>
     <description>Even more extensions for EMR</description>
@@ -65,5 +72,5 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
+

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>emr-goodies-supplement</artifactId>
         <groupId>com.amazon.emr</groupId>
-        <version>2.4.0</version>
+        <version>2.9.0</version>
         <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -57,5 +57,5 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
+
